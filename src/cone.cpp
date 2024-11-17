@@ -43,6 +43,11 @@ public:
         return cone_type;
     }
 
+    double getAccuracyConfidence() const
+    {
+        return accuracy_confidence;
+    }
+
     // return the distance between two cones as a double
     double distanceBetweenCones(const Cone &cone1) const
     {
@@ -94,7 +99,7 @@ public:
     }
 
     // a function to scans area in front of cone based on parameters to find subsequent cones
-    std::vector<Cone> scanArea(std::vector<Cone> cones, double range, double arc)
+    std::vector<Cone> scanArea(std::vector<Cone> cones, double range)
     {
         std::vector<Cone> cones_in_range;
         for (int i = 0; i < cones.size(); i++)
@@ -104,8 +109,7 @@ public:
                 continue;
             }
             double distance = this->distanceBetweenCones(cones[i]);
-            double angle = this->angleBetweenCones(cones[i]);
-            if (distance < range && angle < arc)
+            if (distance < range)
             {
                 cones_in_range.push_back(cones[i]);
             }

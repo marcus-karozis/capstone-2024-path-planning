@@ -96,24 +96,64 @@ Cone closestRightCone(const std::vector<Cone> &cones, point car_pos)
 
 
 // a function that evaluates a score for the likeliness and accuracy of a cone being the next cone in the track limit vector based on accuracy score, straightness, and distance
-double evaluateConeScore(Cone cone, Cone prev_cone)
+double evaluateConeScore(const Cone &coneCandidate, ConePath &previousCones)
 {
-    double distance = cone.distanceBetweenCones(prev_cone);
-    double angle = cone.angleBetweenCones(prev_cone);
-    double score = 0;
-    if (distance < 1)
+    if (previousCones.size() < 2)
     {
-        score += 0.5;
+        // Not enough cones to evaluate straightness
+        return 0.0;
     }
-    if (angle < 10)
+
+    // Get the last two cones from the track limit vector
+    const Cone &lastCone = previousCones.getCone(previousCones.size() - 1);
+    const Cone &secondLastCone = previousCones.getCone(previousCones.size() - 2);
+
+    // Calculate the expected direction based on the last two cones
+    double expectedAngle = secondLastCone.angleBetweenCones(lastCone);
+
+    
+
+    // Calculate the angle between the last cone and the candidate
+    double candidateAngle = lastCone.angleBetweenCones(coneCandidate);
+
+    
+
+    // Calculate the angle deviation
+    double angleDeviation = std::abs(candidateAngle - expectedAngle);
+
+    
+
+    // Check if the candidate cone is within the allowed angle deviation
+    if (angleDeviation > config.pred_future_cone_arc)
     {
-        score += 0.3;
+        std::cout << "previous cones size: " << previousCones.size() << std::endl;
+        std::cout << "Candidate Angle: " << candidateAngle << std::endl;
+        std::cout << "Expected Angle: " << expectedAngle << std::endl;
+        std::cout << "Angle Deviation: " << angleDeviation << std::endl;
+        return 0.0; // Invalid candidate due to angle deviation
     }
-    if (cone.getPos().x > prev_cone.getPos().x)
+
+    // Calculate the distance between the last cone and the candidate
+    double distanceToCandidate = lastCone.distanceBetweenCones(coneCandidate);
+
+    
+
+    // Check if the candidate cone is within the allowed range
+    if (distanceToCandidate > config.pred_future_cone_range)
     {
-        score += 0.2;
+        std::cout << "Distance to Candidate: " << distanceToCandidate << std::endl;
+        return 0.0; // Invalid candidate due to range
     }
-    return score;
+
+    // Calculate individual scores
+    double accuracyScore = coneCandidate.getAccuracyConfidence();                       // Assume higher confidence is better
+    double straightnessScore = 1.0 - (angleDeviation / config.pred_future_cone_arc);    // Normalize straightness
+    double distanceScore = 1.0 - (distanceToCandidate / config.pred_future_cone_range); // Normalize distance
+
+    // Combine the scores with weights
+    double finalScore = (0.5 * accuracyScore) + (0.3 * straightnessScore) + (0.2 * distanceScore);
+
+    return finalScore;
 }
 
 // a function that finds the closest cone from the opposite side TL Vector
@@ -182,12 +222,13 @@ std::vector<ConePath> track_limit_derivation(std::vector<Cone> confirmed_cones)
     {
         if (confirmed_cones[i].getConeType() == "big_orange")
         {
-            if (confirmed_cones[i].angleBetweenPointAndCone(car_pos) < 0)
+            if (confirmed_cones[i].angleBetweenPointAndCone(car_pos) > 0)
             {
                 leftTrackLimit.addCone(confirmed_cones[i]);
             }
             else
             {
+                std::cout << confirmed_cones[i].angleBetweenPointAndCone(car_pos) << std::endl;
                 rightTrackLimit.addCone(confirmed_cones[i]);
             }
         }
@@ -208,7 +249,7 @@ std::vector<ConePath> track_limit_derivation(std::vector<Cone> confirmed_cones)
         iterations++;
         Cone lastLeftCone = leftTrackLimit.getCone(leftTrackLimit.size() - 1);
 
-        std::vector<Cone> leftVectorNextCandidates = lastLeftCone.scanArea(confirmed_cones, config.pred_future_cone_range, config.pred_future_cone_arc);
+        std::vector<Cone> leftVectorNextCandidates = lastLeftCone.scanArea(confirmed_cones, config.pred_future_cone_range);
 
         if (leftVectorNextCandidates.size() == 1)
         {
@@ -220,7 +261,12 @@ std::vector<ConePath> track_limit_derivation(std::vector<Cone> confirmed_cones)
             int maxIndex = 0;
             for (int i = 0; i < leftVectorNextCandidates.size(); i++)
             {
-                double score = evaluateConeScore(leftVectorNextCandidates[i], lastLeftCone);
+                // if candidate is already in the track limit, skip
+                if (leftTrackLimit.containsCone(leftVectorNextCandidates[i]))
+                {
+                    continue;
+                }
+                double score = evaluateConeScore(leftVectorNextCandidates[i], leftTrackLimit);
                 if (score > maxScore)
                 {
                     maxScore = score;
@@ -241,7 +287,7 @@ std::vector<ConePath> track_limit_derivation(std::vector<Cone> confirmed_cones)
         iterations++;
         Cone lastRightCone = rightTrackLimit.getCone(rightTrackLimit.size() - 1);
 
-        std::vector<Cone> rightVectorNextCandidates = lastRightCone.scanArea(confirmed_cones, config.pred_future_cone_range, config.pred_future_cone_arc);
+        std::vector<Cone> rightVectorNextCandidates = lastRightCone.scanArea(confirmed_cones, config.pred_future_cone_range);
 
         if (rightVectorNextCandidates.size() == 1)
         {
@@ -253,8 +299,11 @@ std::vector<ConePath> track_limit_derivation(std::vector<Cone> confirmed_cones)
             int maxIndex = 0;
             for (int i = 0; i < rightVectorNextCandidates.size(); i++)
             {
-                //if ()
-                double score = evaluateConeScore(rightVectorNextCandidates[i], lastRightCone);
+                if (rightTrackLimit.containsCone(rightVectorNextCandidates[i]))
+                {
+                    continue;
+                }
+                double score = evaluateConeScore(rightVectorNextCandidates[i], rightTrackLimit);
                 if (score > maxScore)
                 {
                     maxScore = score;
@@ -270,63 +319,6 @@ std::vector<ConePath> track_limit_derivation(std::vector<Cone> confirmed_cones)
     }
 
     return {leftTrackLimit, rightTrackLimit};
-
-        // ConeBST leftTrackLimit;
-        // ConeBST rightTrackLimit;
-
-        // leftTrackLimit.insert(closestLeftCone(confirmed_cones, car_pos));
-        // rightTrackLimit.insert(closestRightCone(confirmed_cones, car_pos));
-
-        // while (true)
-        // {
-        //     // get the max element in the left track limit BST
-        //     Cone leftMax = leftTrackLimit.findMax();
-        //     std::vector<Cone> leftVectorNextCandidates = leftMax.scanArea(confirmed_cones, config.pred_future_cone_range, config.pred_future_cone_arc);
-        //     if (leftVectorNextCandidates.size() == 1)
-        //     {
-        //         leftTrackLimit.insert(leftVectorNextCandidates[0]);
-        //     }
-        //     else if (leftVectorNextCandidates.size() > 1)
-        //     {
-        //         double maxScore = 0;
-        //         int maxIndex = 0;
-        //         for (int i = 0; i < leftVectorNextCandidates.size(); i++)
-        //         {
-        //             double score = evaluateConeScore(leftVectorNextCandidates[i],leftMax);
-        //             if (score > maxScore)
-        //             {
-        //                 maxScore = score;
-        //                 maxIndex = i;
-        //             }
-        //         }
-        //         leftTrackLimit.insert(leftVectorNextCandidates[maxIndex]);
-        //     }
-
-        //     // get the max element in the right track limit BST
-        //     Cone rightMax = rightTrackLimit.findMax();
-        //     std::vector<Cone> rightVectorNextCandidates = rightMax.scanArea(confirmed_cones, config.pred_future_cone_range, config.pred_future_cone_arc);
-        //     if (rightVectorNextCandidates.size() == 1)
-        //     {
-        //         rightTrackLimit.insert(rightVectorNextCandidates[0]);
-        //     }
-        //     else if (rightVectorNextCandidates.size() > 1)
-        //     {
-        //         double maxScore = 0;
-        //         int maxIndex = 0;
-        //         for (int i = 0; i < rightVectorNextCandidates.size(); i++)
-        //         {
-        //             double score = evaluateConeScore(rightVectorNextCandidates[i],rightMax);
-        //             if (score > maxScore)
-        //             {
-        //                 maxScore = score;
-        //                 maxIndex = i;
-        //             }
-        //         }
-        //         rightTrackLimit.insert(rightVectorNextCandidates[maxIndex]);
-        //     }
-        // }
-
-        // return {leftTrackLimit.outputToPath(), rightTrackLimit.outputToPath()};
 
 
 }
@@ -401,6 +393,6 @@ int main(int argc, char **argv)
     //std::cout << raceline << std::endl;
 
     // Plot the grid
-    GridPlotter plotter(800, 800, 10.0);
+    GridPlotter plotter(1800, 1800, 10.0);
     plotter.plotGrid(cones, tlVector[0], tlVector[1], midline, "grid_plot.png");
 }

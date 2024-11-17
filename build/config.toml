@@ -3,12 +3,12 @@ loop_closure_MOE = 0.5
 margin_of_error = 0.1
 cone_detection_MOE_rate = 0.1
 
-pred_future_cone_range = 3.0
-pred_future_cone_arc = 30.0
+pred_future_cone_range = 2.5
+pred_future_cone_arc = 95.0
 
-car_start_pos_x = 0.0
-car_start_pos_y = 0.0
+car_start_pos_x = 9.757093
+car_start_pos_y = 74.00039
 
-track = "/rectangle.csv"
+track = "/hairpins_increasing_difficulty.csv"
 
-max_wile_loop_iterations = 1000
+max_wile_loop_iterations = 3000

@@ -41,6 +41,19 @@ public:
         }
     }
 
+    // search to see if the vector contains a cone
+    bool containsCone(Cone c)
+    {
+        for (int i = 0; i < path.size(); i++)
+        {
+            if (path[i].getPos().x == c.getPos().x && path[i].getPos().y == c.getPos().y)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     void display()
     {
         for (int i = 0; i < path.size(); i++)
@@ -76,7 +89,7 @@ public:
         return path[index];
     }
 
-    int size()
+    int size() const
     {
         return path.size();
     }
