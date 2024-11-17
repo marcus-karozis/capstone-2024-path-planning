@@ -33,7 +33,7 @@ std::vector<Cone> reloadCones(std::vector<Cone> cones)
 {
     for (int i = 0; i < cones.size(); i++)
     {
-        //cones[i].reloadPos();
+        cones[i].reloadPos(config.cone_pos_variance_multiplier);
     }
     return cones;
 }
@@ -244,7 +244,7 @@ std::vector<ConePath> track_limit_derivation(std::vector<Cone> confirmed_cones)
     }
     
     int iterations = 0;
-    while (iterations < config.max_wile_loop_iterations)
+    while (iterations < config.max_while_loop_iterations)
     {
         iterations++;
         Cone lastLeftCone = leftTrackLimit.getCone(leftTrackLimit.size() - 1);
@@ -282,7 +282,7 @@ std::vector<ConePath> track_limit_derivation(std::vector<Cone> confirmed_cones)
     }
 
     iterations = 0;
-    while (iterations < config.max_wile_loop_iterations)
+    while (iterations < config.max_while_loop_iterations)
     {
         iterations++;
         Cone lastRightCone = rightTrackLimit.getCone(rightTrackLimit.size() - 1);
@@ -335,7 +335,7 @@ Path midline_derivation(ConePath tlLeft, ConePath tlRight)
     bool checkSide = false; // false for left, true for right
 
     int iterations = 0;
-    while (iterations < config.max_wile_loop_iterations)
+    while (iterations < config.max_while_loop_iterations)
     {
         iterations++;
         if (checkSide)
@@ -369,30 +369,42 @@ Path raceline_derivation(ConePath tlLeft, ConePath tlRight, Path midline)
 
 int main(int argc, char **argv)
 {
+    int reloads = 0;
     //std::cout << TRACK_PATH  + config.track<< std::endl;
     std::vector<Cone> cones = TrackLoader(TRACK_PATH + config.track).cones;
 
     //for (auto i : cones)
     //    std::cout << i.toString() << ' ';
 
-    cones = compare_cones(std::vector<Cone>(), cones);
-    //for (auto i : cones)
-    //    std::cout << i.toString() << ' ';
+    while (reloads < config.reload_iterations)
+    {
+        if (config.cone_pos_variance_multiplier > 0.0)
+        {
+            cones = reloadCones(cones);
+        }
 
-    std::vector<ConePath> tlVector = track_limit_derivation(cones);
-    for (int i=0; i < tlVector[0].size(); i++)
-        std::cout << tlVector[0].getCone(i).toString() << ' ';
+        cones = compare_cones(std::vector<Cone>(), cones);
+        //for (auto i : cones)
+        //    std::cout << i.toString() << ' ';
 
-    for (int i = 0; i < tlVector[1].size(); i++)
-        std::cout << tlVector[1].getCone(i).toString() << ' ';
+        std::vector<ConePath> tlVector = track_limit_derivation(cones);
+        for (int i=0; i < tlVector[0].size(); i++)
+            std::cout << tlVector[0].getCone(i).toString() << ' ';
 
-    Path midline = midline_derivation(tlVector[0], tlVector[1]);
-    // std::cout << midline << std::endl;
+        for (int i = 0; i < tlVector[1].size(); i++)
+            std::cout << tlVector[1].getCone(i).toString() << ' ';
 
-    // Path raceline = raceline_derivation(tlVector[0], tlVector[1], midline);
-    //std::cout << raceline << std::endl;
+        Path midline = midline_derivation(tlVector[0], tlVector[1]);
+        // std::cout << midline << std::endl;
 
-    // Plot the grid
-    GridPlotter plotter(1800, 1800, 10.0);
-    plotter.plotGrid(cones, tlVector[0], tlVector[1], midline, "grid_plot.png");
+        // Path raceline = raceline_derivation(tlVector[0], tlVector[1], midline);
+        //std::cout << raceline << std::endl;
+
+        // Plot the grid
+        GridPlotter plotter(1800, 1800, 10.0);
+        std::string outputPath = "output/" + std::to_string(config.cone_pos_variance_multiplier) + "_grid_plot" + std::to_string(reloads) + ".png";
+        plotter.plotGrid(cones, tlVector[0], tlVector[1], midline, outputPath);
+
+        reloads++;
+    }
 }

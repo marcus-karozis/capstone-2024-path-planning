@@ -15,7 +15,9 @@ public:
     double car_start_pos_x;
     double car_start_pos_y;
     std::string track;
-    int max_wile_loop_iterations;
+    int max_while_loop_iterations;
+    double cone_pos_variance_multiplier;
+    int reload_iterations;
 
     ConfigLoader(const std::string &configPath);
 };

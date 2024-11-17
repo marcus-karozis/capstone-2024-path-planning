@@ -17,7 +17,9 @@ ConfigLoader::ConfigLoader(const std::string &configPath)
         car_start_pos_x = toml::find<double>(config, "car_start_pos_x");
         car_start_pos_y = toml::find<double>(config, "car_start_pos_y");
         track = toml::find<std::string>(config, "track");
-        max_wile_loop_iterations = toml::find<int>(config, "max_wile_loop_iterations");
+        max_while_loop_iterations = toml::find<int>(config, "max_while_loop_iterations");
+        cone_pos_variance_multiplier = toml::find<double>(config, "cone_pos_variance_multiplier");
+        reload_iterations = toml::find<int>(config, "reload_iterations");
     }
     catch (const std::exception &e)
     {

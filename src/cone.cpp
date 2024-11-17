@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <cmath>
+#include <random>
 #include "utils.h"
 #pragma once
 
@@ -14,6 +15,10 @@ private:
     bool discarded;
     double accuracy_confidence;
     std::string cone_type;
+    point ground_truth_pos;
+    double x_variance;
+    double y_variance;
+    double xy_covariance;
 
 public:
     Cone(point pos, int num_detections, bool discarded, double accuracy_confidence, std::string cone_type)
@@ -23,6 +28,10 @@ public:
         this->discarded = discarded;
         this->accuracy_confidence = accuracy_confidence;
         this->cone_type = cone_type;
+        this->ground_truth_pos = pos;
+        this->x_variance = 0;
+        this->y_variance = 0;
+        this->xy_covariance = 0;
     }
     Cone(std::string tag, double x, double y, double direction, double x_variance, double y_variance, double xy_covariance)
     {
@@ -31,6 +40,10 @@ public:
         this->discarded = false;
         this->accuracy_confidence = 1;
         this->cone_type = tag;
+        this->ground_truth_pos = point{x, y};
+        this->x_variance = x_variance;
+        this->y_variance = y_variance;
+        this->xy_covariance = xy_covariance;
     }
 
     point getPos() const
@@ -121,5 +134,42 @@ public:
     std::string toString() const
     {
         return "Cone: " + std::to_string(pos.x) + ", " + std::to_string(pos.y) + ", " + cone_type;
+    }
+
+    // a function to reload the cone position based on covariance
+    void reloadPos(double varianceMultiplier)
+    {
+        // Scale the variances and covariance by the varianceMultiplier
+        double scaled_x_variance = x_variance * varianceMultiplier;
+        double scaled_y_variance = y_variance * varianceMultiplier;
+        double scaled_xy_covariance = xy_covariance * varianceMultiplier;
+
+        // Create the covariance matrix
+        double cov_matrix[2][2] = {
+            {scaled_x_variance, scaled_xy_covariance},
+            {scaled_xy_covariance, scaled_y_variance}};
+
+        // Compute the Cholesky decomposition of the covariance matrix
+        double L[2][2]; // Lower triangular matrix
+        L[0][0] = std::sqrt(cov_matrix[0][0]);
+        L[0][1] = 0;
+        L[1][0] = cov_matrix[1][0] / L[0][0];
+        L[1][1] = std::sqrt(cov_matrix[1][1] - L[1][0] * L[1][0]);
+
+        // Generate random samples from a standard normal distribution
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::normal_distribution<> d(0, 1);
+
+        double z1 = d(gen);
+        double z2 = d(gen);
+
+        // Transform the samples using the Cholesky matrix
+        double x_offset = L[0][0] * z1 + L[1][0] * z2;
+        double y_offset = L[0][1] * z1 + L[1][1] * z2;
+
+        // Update the position
+        pos.x = ground_truth_pos.x + x_offset;
+        pos.y = ground_truth_pos.y + y_offset;
     }
 };

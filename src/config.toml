@@ -3,6 +3,8 @@ loop_closure_MOE = 0.5
 margin_of_error = 0.1
 cone_detection_MOE_rate = 0.1
 
+cone_pos_variance_multiplier = 0.1
+
 pred_future_cone_range = 2.5
 pred_future_cone_arc = 95.0
 
@@ -11,4 +13,6 @@ car_start_pos_y = 0.0
 
 track = "/hairpins_increasing_difficulty.csv"
 
-max_wile_loop_iterations = 3000
+max_while_loop_iterations = 3000
+
+reload_iterations = 4
