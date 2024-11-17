@@ -1,0 +1,45 @@
+Performing C++ SOURCE FILE Test TOML11_COMPILER_SUPPORTS_WRANGE_LOOP_ANALYSIS failed with the following output:
+Change Dir: /home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_da2ff/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_da2ff.dir/build.make CMakeFiles/cmTC_da2ff.dir/build
+gmake[1]: Entering directory '/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_da2ff.dir/src.cxx.o
+/usr/bin/c++ -DTOML11_COMPILER_SUPPORTS_WRANGE_LOOP_ANALYSIS  -Wrange-loop-analysis -o CMakeFiles/cmTC_da2ff.dir/src.cxx.o -c /home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command-line option '-Wrange-loop-analysis'
+gmake[1]: *** [CMakeFiles/cmTC_da2ff.dir/build.make:78: CMakeFiles/cmTC_da2ff.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_da2ff/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test TOML11_COMPILER_SUPPORTS_WRANGE_LOOP_ANALYSIS failed with the following output:
+Change Dir: /home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_fe53c/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_fe53c.dir/build.make CMakeFiles/cmTC_fe53c.dir/build
+gmake[1]: Entering directory '/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_fe53c.dir/src.cxx.o
+/usr/bin/c++ -DTOML11_COMPILER_SUPPORTS_WRANGE_LOOP_ANALYSIS  -Wrange-loop-analysis -o CMakeFiles/cmTC_fe53c.dir/src.cxx.o -c /home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command-line option '-Wrange-loop-analysis'
+gmake[1]: *** [CMakeFiles/cmTC_fe53c.dir/build.make:78: CMakeFiles/cmTC_fe53c.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_fe53c/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test TOML11_COMPILER_SUPPORTS_WRANGE_LOOP_ANALYSIS failed with the following output:
+Change Dir: /home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_62f39/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_62f39.dir/build.make CMakeFiles/cmTC_62f39.dir/build
+gmake[1]: Entering directory '/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_62f39.dir/src.cxx.o
+/usr/bin/c++ -DTOML11_COMPILER_SUPPORTS_WRANGE_LOOP_ANALYSIS  -Wrange-loop-analysis -o CMakeFiles/cmTC_62f39.dir/src.cxx.o -c /home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command-line option '-Wrange-loop-analysis'
+gmake[1]: *** [CMakeFiles/cmTC_62f39.dir/build.make:78: CMakeFiles/cmTC_62f39.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_62f39/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }

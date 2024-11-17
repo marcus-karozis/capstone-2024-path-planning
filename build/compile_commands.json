@@ -1,0 +1,42 @@
+[
+{
+  "directory": "/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build",
+  "command": "/usr/bin/c++ -DCONFIG_PATH=\\\"/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/config.toml\\\" -DTRACK_PATH=\\\"/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/cone_csv\\\" -I/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/external/toml11 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/uuid -I/usr/include/freetype2 -I/usr/include/libpng16 -I/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/external/toml11/include -g -o CMakeFiles/path-planning.dir/src/main.cpp.o -c /home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/src/main.cpp",
+  "file": "/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/src/main.cpp"
+},
+{
+  "directory": "/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build",
+  "command": "/usr/bin/c++ -DCONFIG_PATH=\\\"/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/config.toml\\\" -DTRACK_PATH=\\\"/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/cone_csv\\\" -I/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/external/toml11 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/uuid -I/usr/include/freetype2 -I/usr/include/libpng16 -I/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/external/toml11/include -g -o CMakeFiles/path-planning.dir/src/ConfigLoader.cpp.o -c /home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/src/ConfigLoader.cpp",
+  "file": "/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/src/ConfigLoader.cpp"
+},
+{
+  "directory": "/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build",
+  "command": "/usr/bin/c++ -DCONFIG_PATH=\\\"/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/config.toml\\\" -DTRACK_PATH=\\\"/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/cone_csv\\\" -I/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/external/toml11 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/uuid -I/usr/include/freetype2 -I/usr/include/libpng16 -I/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/external/toml11/include -g -o CMakeFiles/path-planning.dir/src/utils.cpp.o -c /home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/src/utils.cpp",
+  "file": "/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/src/utils.cpp"
+},
+{
+  "directory": "/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build",
+  "command": "/usr/bin/c++ -DCONFIG_PATH=\\\"/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/config.toml\\\" -DTRACK_PATH=\\\"/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/cone_csv\\\" -I/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/external/toml11 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/uuid -I/usr/include/freetype2 -I/usr/include/libpng16 -I/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/external/toml11/include -g -o CMakeFiles/path-planning.dir/src/conePath.cpp.o -c /home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/src/conePath.cpp",
+  "file": "/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/src/conePath.cpp"
+},
+{
+  "directory": "/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build",
+  "command": "/usr/bin/c++ -DCONFIG_PATH=\\\"/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/config.toml\\\" -DTRACK_PATH=\\\"/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/cone_csv\\\" -I/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/external/toml11 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/uuid -I/usr/include/freetype2 -I/usr/include/libpng16 -I/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/external/toml11/include -g -o CMakeFiles/path-planning.dir/src/coneBST.cpp.o -c /home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/src/coneBST.cpp",
+  "file": "/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/src/coneBST.cpp"
+},
+{
+  "directory": "/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build",
+  "command": "/usr/bin/c++ -DCONFIG_PATH=\\\"/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/config.toml\\\" -DTRACK_PATH=\\\"/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/cone_csv\\\" -I/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/external/toml11 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/uuid -I/usr/include/freetype2 -I/usr/include/libpng16 -I/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/external/toml11/include -g -o CMakeFiles/path-planning.dir/src/cone.cpp.o -c /home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/src/cone.cpp",
+  "file": "/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/src/cone.cpp"
+},
+{
+  "directory": "/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build",
+  "command": "/usr/bin/c++ -DCONFIG_PATH=\\\"/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/config.toml\\\" -DTRACK_PATH=\\\"/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/cone_csv\\\" -I/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/external/toml11 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/uuid -I/usr/include/freetype2 -I/usr/include/libpng16 -I/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/external/toml11/include -g -o CMakeFiles/path-planning.dir/src/TrackLoader.cpp.o -c /home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/src/TrackLoader.cpp",
+  "file": "/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/src/TrackLoader.cpp"
+},
+{
+  "directory": "/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build",
+  "command": "/usr/bin/c++ -DCONFIG_PATH=\\\"/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/config.toml\\\" -DTRACK_PATH=\\\"/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/build/cone_csv\\\" -I/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/external/toml11 -I/usr/include/cairo -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/pixman-1 -I/usr/include/uuid -I/usr/include/freetype2 -I/usr/include/libpng16 -I/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/external/toml11/include -g -o CMakeFiles/path-planning.dir/src/GridPlotter.cpp.o -c /home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/src/GridPlotter.cpp",
+  "file": "/home/marcuskarozis/Documents/Stuff/git/capstone-2024-path-planning/src/GridPlotter.cpp"
+}
+]
